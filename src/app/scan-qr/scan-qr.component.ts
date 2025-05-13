@@ -10,7 +10,7 @@ import {
   IonButton,
   IonIcon,
 } from '@ionic/angular/standalone';
-import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+// import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Browser } from '@capacitor/browser';
 
 interface ContactInfo {
@@ -25,6 +25,14 @@ interface ScannedData {
   version: string;
   timestamp: string;
   contacts: ContactInfo[];
+}
+
+function isNativePlatform() {
+  return !!(
+    window &&
+    (window as any).Capacitor &&
+    (window as any).Capacitor.isNative
+  );
 }
 
 @Component({
@@ -47,27 +55,36 @@ interface ScannedData {
 export class ScanQRComponent implements OnInit {
   isScanning: boolean = false;
   scanError: string | null = null;
+  isWeb: boolean = false;
 
   constructor() {}
 
   ngOnInit() {
-    this.startScan();
+    this.isWeb = !isNativePlatform();
+    if (!this.isWeb) {
+      this.startScan();
+    }
   }
 
   async startScan() {
-    try {
-      this.isScanning = true;
-      this.scanError = null;
-      const result = await BarcodeScanner.startScan();
-      if (result.hasContent) {
-        await this.handleScannedData(result.content);
-      }
-    } catch (error) {
-      console.error('Error scanning QR code:', error);
-      this.scanError = 'Failed to scan QR code. Please try again.';
-    } finally {
-      this.isScanning = false;
+    if (this.isWeb) {
+      this.scanError = 'QR scanning is only available on the mobile app.';
+      return;
     }
+    // Uncomment and use BarcodeScanner only on native
+    // try {
+    //   this.isScanning = true;
+    //   this.scanError = null;
+    //   const result = await BarcodeScanner.startScan();
+    //   if (result.hasContent) {
+    //     await this.handleScannedData(result.content);
+    //   }
+    // } catch (error) {
+    //   console.error('Error scanning QR code:', error);
+    //   this.scanError = 'Failed to scan QR code. Please try again.';
+    // } finally {
+    //   this.isScanning = false;
+    // }
   }
 
   private async handleScannedData(content: string) {

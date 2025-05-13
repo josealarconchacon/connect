@@ -15,16 +15,25 @@
       <h2>Scan a QR Code</h2>
       <p>Point your camera at a digital business card QR code</p>
 
-      <div class="scanner-wrapper" *ngIf="isScanning">
+      <div *ngIf="isWeb" class="web-warning">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <p>QR scanning is only available on the mobile app.</p>
+      </div>
+
+      <div class="scanner-wrapper" *ngIf="isScanning && !isWeb">
         <div class="scanner-overlay"></div>
       </div>
 
-      <ion-button expand="block" (click)="startScan()" *ngIf="!isScanning">
+      <ion-button
+        expand="block"
+        (click)="startScan()"
+        *ngIf="!isScanning && !isWeb"
+      >
         <ion-icon name="scan-outline" slot="start"></ion-icon>
         Start Scanning
       </ion-button>
 
-      <div *ngIf="scanError" class="error-message">
+      <div *ngIf="scanError && !isWeb" class="error-message">
         <ion-icon name="alert-circle-outline"></ion-icon>
         <p>{{ scanError }}</p>
       </div>
