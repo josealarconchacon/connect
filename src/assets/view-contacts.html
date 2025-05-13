@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Business Card</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #3880ff;
+      }
+      .contact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .contact-item {
+        display: flex;
+        align-items: center;
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 16px;
+      }
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #3880ff;
+        color: #fff;
+        border-radius: 50%;
+        margin-right: 16px;
+        font-size: 20px;
+      }
+      .contact-info {
+        flex: 1;
+      }
+      .contact-label {
+        font-weight: 600;
+        margin: 0;
+      }
+      .contact-value {
+        margin: 4px 0 0;
+        color: #666;
+        font-size: 14px;
+      }
+      .connect-button {
+        background: #3880ff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+      .connect-button:hover {
+        background: #3171e0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Digital Business Card</h1>
+      <div class="contact-list" id="contact-list"></div>
+    </div>
+    <script>
+      function getIconEmoji(icon) {
+        const iconMap = {
+          "mail-outline": "✉️",
+          "call-outline": "📞",
+          "logo-linkedin": "💼",
+          "logo-twitter": "🐦",
+          "logo-instagram": "📸",
+          "logo-facebook": "👥",
+          "globe-outline": "🌐",
+          "location-outline": "📍",
+          default: "🔗",
+        };
+        return iconMap[icon] || iconMap["default"];
+      }
+      function getActionUrl(contact) {
+        switch (contact.type) {
+          case "email":
+            return `mailto:${contact.value}`;
+          case "phone":
+            return `tel:${contact.value}`;
+          case "website":
+            return contact.value.startsWith("http")
+              ? contact.value
+              : `https://${contact.value}`;
+          case "location":
+            return `https://maps.google.com/?q=${encodeURIComponent(
+              contact.value
+            )}`;
+          case "social":
+            return contact.value;
+          default:
+            return "#";
+        }
+      }
+      function decodeDataParam() {
+        const params = new URLSearchParams(window.location.search);
+        const data = params.get("data");
+        if (!data) return null;
+        try {
+          return JSON.parse(atob(data));
+        } catch (e) {
+          return null;
+        }
+      }
+      function renderContacts(contacts) {
+        const list = document.getElementById("contact-list");
+        if (!contacts || !contacts.length) {
+          list.innerHTML = "<p>No contacts found.</p>";
+          return;
+        }
+        list.innerHTML = contacts
+          .map(
+            (contact) => `
+        <div class="contact-item">
+          <div class="contact-icon" style="background: ${
+            contact.color || "#3880ff"
+          }">
+            ${getIconEmoji(contact.icon)}
+          </div>
+          <div class="contact-info">
+            <h2 class="contact-label">${contact.label}</h2>
+            <p class="contact-value">${contact.value}</p>
+          </div>
+          <button class="connect-button" onclick="window.location.href='${getActionUrl(
+            contact
+          )}'">Connect</button>
+        </div>
+      `
+          )
+          .join("");
+      }
+      const data = decodeDataParam();
+      if (data && Array.isArray(data.contacts)) {
+        renderContacts(data.contacts);
+      } else {
+        document.getElementById("contact-list").innerHTML =
+          "<p>Invalid or missing contact data.</p>";
+      }
+    </script>
+  </body>
+</html>

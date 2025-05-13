@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button routerLink="/home">
         <ion-icon name="arrow-back-outline"></ion-icon>
@@ -10,44 +10,68 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="qr-container">
+  <div class="qr-container side-by-side">
     <div *ngIf="contacts.length > 0; else noContacts" class="qr-content">
-      <h2>Your Contact Information</h2>
-      <p>Share this QR code to let others connect with you</p>
-
-      <div class="qr-wrapper">
-        <canvas #qrCanvas></canvas>
-      </div>
-
-      <div class="contact-list">
-        <h3>Contacts in QR Code</h3>
-        <ion-list>
-          <ion-item *ngFor="let contact of contacts">
-            <ion-icon
-              [name]="contact.icon"
-              slot="start"
-              [color]="contact.color || 'primary'"
-            ></ion-icon>
-            <ion-label>
-              <h2>{{ contact.label }}</h2>
-              <p>{{ contact.value }}</p>
-            </ion-label>
+      <h2 class="section-title">Share Your Contact</h2>
+      <p class="section-desc">
+        Select a contact to share instantly via QR code.<br />
+        <ion-icon name="alert-circle-outline" color="warning"></ion-icon>
+        <b>Note:</b> QR code can only share one contact at a time. To share all,
+        use the <b>Download vCard</b> button below and open the file on your
+        device.
+      </p>
+      <div class="side-by-side-content">
+        <!-- Contact Picker and Preview -->
+        <div class="contact-preview-list">
+          <ion-item class="contact-picker">
+            <ion-label>Select Contact</ion-label>
+            <ion-select
+              [(ngModel)]="selectedContactIndex"
+              (ionChange)="onContactChange()"
+            >
+              <ion-select-option
+                *ngFor="let contact of contacts; let i = index"
+                [value]="i"
+              >
+                {{ contact.label }}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
-        </ion-list>
+          <ion-list>
+            <ion-item>
+              <ion-icon
+                [name]="contacts[selectedContactIndex].icon"
+                slot="start"
+                [color]="contacts[selectedContactIndex].color || 'primary'"
+              ></ion-icon>
+              <ion-label>
+                <h2>{{ contacts[selectedContactIndex].label }}</h2>
+                <p>{{ contacts[selectedContactIndex].value }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+        <!-- QR Code -->
+        <div class="qr-wrapper">
+          <canvas #qrCanvas></canvas>
+        </div>
       </div>
-
-      <div class="action-buttons">
-        <ion-button expand="block" (click)="downloadQR()">
+      <!-- vCard Actions -->
+      <div class="vcard-actions">
+        <ion-button expand="block" (click)="downloadVCard()" color="secondary">
           <ion-icon name="download-outline" slot="start"></ion-icon>
-          Download QR Code
+          Download vCard (All Contacts)
         </ion-button>
-        <ion-button expand="block" (click)="shareQR()">
-          <ion-icon name="share-outline" slot="start"></ion-icon>
-          Share QR Code
+        <ion-button expand="block" (click)="copyVCard()" color="tertiary">
+          <ion-icon name="copy-outline" slot="start"></ion-icon>
+          Copy vCard (All Contacts)
         </ion-button>
       </div>
+      <!-- Success Message -->
+      <ion-text color="success" *ngIf="showSuccess">
+        <p>QR code and vCard ready to share!</p>
+      </ion-text>
     </div>
-
     <ng-template #noContacts>
       <div class="no-contacts">
         <ion-icon name="qr-code-outline"></ion-icon>
