@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  contactPageUrl: 'https://yourdomain.com/view-contacts.html',
 };
