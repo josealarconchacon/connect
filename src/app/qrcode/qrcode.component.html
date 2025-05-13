@@ -23,20 +23,21 @@
       <div class="side-by-side-content">
         <!-- Contact Picker and Preview -->
         <div class="contact-preview-list">
-          <ion-item class="contact-picker">
-            <ion-label>Select Contact</ion-label>
-            <ion-select
+          <div class="contact-picker" style="margin-bottom: 1rem">
+            <label for="contactSelect"><b>Select Contact</b></label>
+            <select
+              id="contactSelect"
               [(ngModel)]="selectedContactIndex"
-              (ionChange)="onContactChange()"
+              (change)="onContactChange()"
             >
-              <ion-select-option
+              <option
                 *ngFor="let contact of contacts; let i = index"
                 [value]="i"
               >
                 {{ contact.label }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+              </option>
+            </select>
+          </div>
           <ion-list>
             <ion-item>
               <ion-icon
