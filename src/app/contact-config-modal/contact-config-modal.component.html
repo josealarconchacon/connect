@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Configure {{ card.label }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="config-container">
+    <div class="icon-preview">
+      <ion-icon
+        [name]="card.icon"
+        [style.color]="card.color || '#4a9eff'"
+      ></ion-icon>
+      <span class="label">{{ card.label }}</span>
+    </div>
+
+    <ion-item class="input-item">
+      <ion-input
+        [(ngModel)]="contactInfo"
+        [placeholder]="getPlaceholder()"
+        label="Contact Information"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+
+    <div class="help-text">
+      <p *ngIf="card.id === 'phone'">
+        Enter your phone number with country code (e.g., +1 555 123 4567)
+      </p>
+      <p *ngIf="card.id === 'email'">Enter your email address</p>
+      <p *ngIf="card.id === 'website'">
+        Enter your website URL (e.g., https://example.com)
+      </p>
+      <p
+        *ngIf="['linkedin', 'github', 'twitter', 'instagram'].includes(card.id)"
+      >
+        Enter your {{ card.label }} profile URL or username
+      </p>
+      <p *ngIf="card.type === 'custom'">
+        Enter your custom contact information
+      </p>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer-buttons">
+      <ion-button fill="outline" (click)="cancel()">Cancel</ion-button>
+      <ion-button (click)="save()">Save</ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

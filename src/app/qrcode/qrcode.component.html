@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Your Digital Business Card</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="qr-container">
+    <div *ngIf="contacts.length > 0; else noContacts" class="qr-content">
+      <h2>Your Contact Information</h2>
+      <p>Share this QR code to let others connect with you</p>
+
+      <div class="qr-wrapper">
+        <canvas #qrCanvas></canvas>
+      </div>
+
+      <div class="contact-list">
+        <h3>Contacts in QR Code</h3>
+        <ion-list>
+          <ion-item *ngFor="let contact of contacts">
+            <ion-icon
+              [name]="contact.icon"
+              slot="start"
+              [color]="contact.color || 'primary'"
+            ></ion-icon>
+            <ion-label>
+              <h2>{{ contact.label }}</h2>
+              <p>{{ contact.value }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="action-buttons">
+        <ion-button expand="block" (click)="downloadQR()">
+          <ion-icon name="download-outline" slot="start"></ion-icon>
+          Download QR Code
+        </ion-button>
+        <ion-button expand="block" (click)="shareQR()">
+          <ion-icon name="share-outline" slot="start"></ion-icon>
+          Share QR Code
+        </ion-button>
+      </div>
+    </div>
+
+    <ng-template #noContacts>
+      <div class="no-contacts">
+        <ion-icon name="qr-code-outline"></ion-icon>
+        <h2>No Contacts Yet</h2>
+        <p>Add your contact information to generate a QR code</p>
+        <ion-button routerLink="/home" expand="block">
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          Add Contacts
+        </ion-button>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>

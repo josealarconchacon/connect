@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Custom Contact Type</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="preview-button">
+    <ion-button fill="outline" color="medium">
+      <ion-icon name="bookmark-outline" slot="start"></ion-icon>
+      Type Preview
+    </ion-button>
+  </div>
+
+  <div class="step-container">
+    <h3>Step 1: Name Your Custom Type</h3>
+    <ion-item>
+      <ion-input
+        [(ngModel)]="customTypeName"
+        placeholder="Enter a name for your custom type..."
+        label="Name"
+        labelPlacement="floating"
+      ></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="step-container">
+    <h3>Step 2: Choose an Icon</h3>
+    <div class="icon-grid">
+      <div
+        *ngFor="let icon of iconOptions"
+        class="icon-option"
+        [class.selected]="selectedIcon === icon.icon"
+        (click)="selectIcon(icon.icon)"
+      >
+        <ion-icon [name]="icon.icon"></ion-icon>
+        <span>{{ icon.name }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-container">
+    <h3>Step 3: Select Color</h3>
+    <div class="color-grid">
+      <div
+        *ngFor="let color of colorOptions"
+        class="color-option"
+        [class.selected]="selectedColor === color.value"
+        (click)="selectColor(color.value)"
+      >
+        <div class="color-circle" [style.background-color]="color.value"></div>
+        <span>{{ color.name }}</span>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer-buttons">
+      <ion-button fill="outline" (click)="cancel()">Cancel</ion-button>
+      <ion-button (click)="createType()">+ Create Type</ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
