@@ -1,6 +1,5 @@
 .digital-card-container {
   padding: 2rem;
-  background-color: #1a1a1a;
   min-height: 100vh;
   color: white;
   text-align: center;
@@ -65,7 +64,7 @@
   }
 
   &.configured {
-    border-color: rgba(74, 158, 255, 0.3);
+    // border-color: rgba(74, 158, 255, 0.3);
   }
 
   &.unconfigured {
@@ -152,4 +151,263 @@
 .contact-card {
   animation: fadeIn 0.3s ease-out forwards;
   animation-delay: calc(var(--card-index, 0) * 0.1s);
+}
+
+// Wallet background
+.wallet-bg {
+  min-height: 100vh;
+  padding: 2rem 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.wallet-stack {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  min-width: 260px;
+  margin: 0 auto;
+  height: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+// Responsive container for cards
+.wallet-cards-responsive {
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+// Default: stacked wallet style (mobile)
+.wallet-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 90px;
+  border-radius: 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18), 0 1.5px 4px rgba(0, 0, 0, 0.12);
+  color: #e3eafc;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0 1.5rem;
+  font-family: var(--ion-font-family);
+  background: #20232a;
+}
+
+// Profile card (top card)
+.profile-card {
+  position: relative;
+  background: linear-gradient(135deg, #263e6a 60%, #1a73e8 100%);
+  color: #e3eafc;
+  z-index: 100;
+  min-height: 120px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 32px rgba(26, 115, 232, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+}
+
+.profile-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.avatar-qr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-avatar {
+  font-size: 3.5rem;
+  color: #e3eafc;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.profile-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.profile-title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #b0b8c9;
+}
+
+// Contact wallet cards
+.contact-wallet-card {
+  color: #e3eafc;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 24px;
+  background: #263e6a; // fallback
+  opacity: 0.98;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.contact-wallet-card:hover {
+  box-shadow: 0 8px 32px rgba(32, 33, 36, 0.18);
+  transform: translateY(-2px) scale(1.02);
+  opacity: 1;
+}
+
+.contact-card-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.wallet-card-icon {
+  font-size: 2rem;
+  min-width: 2rem;
+  color: #e3eafc;
+  opacity: 0.95;
+}
+
+.wallet-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.wallet-card-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e3eafc;
+  text-shadow: 0 1px 2px rgba(32, 33, 36, 0.08);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wallet-contact-info {
+  font-size: 0.95rem;
+  color: #b0b8c9;
+  word-break: break-all;
+  opacity: 0.95;
+}
+
+.wallet-configure-prompt {
+  font-size: 0.95rem;
+  color: #ffe082;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.wallet-status-icon {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+  &.configured {
+    color: #ffe082;
+    opacity: 0.9;
+  }
+  &.unconfigured {
+    color: #ffe082;
+    opacity: 0.8;
+  }
+}
+
+// Responsive adjustments
+@media (min-width: 601px) {
+  .wallet-cards-responsive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    position: static;
+    margin-top: 2.5rem;
+  }
+  .wallet-card.contact-wallet-card {
+    position: static;
+    margin: 0;
+    top: unset !important;
+    width: 100%;
+    min-width: 0;
+    border-radius: 22px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .wallet-card.contact-wallet-card:hover {
+    box-shadow: 0 8px 32px rgba(32, 33, 36, 0.18);
+    transform: translateY(-2px) scale(1.03);
+  }
+  .wallet-stack {
+    max-width: 900px;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .wallet-stack {
+    max-width: 98vw;
+    min-width: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .wallet-card {
+    min-height: 60px;
+    padding: 0 0.7rem;
+    border-radius: 18px;
+  }
+  .profile-card {
+    min-height: 90px;
+    padding: 1.2rem 0.7rem;
+  }
+  .contact-wallet-card {
+    min-height: 50px;
+    padding: 0.7rem 0.7rem;
+    border-radius: 16px;
+  }
+  .profile-avatar {
+    font-size: 2.2rem;
+  }
+  .profile-name {
+    font-size: 1.1rem;
+  }
+  .profile-title {
+    font-size: 0.9rem;
+  }
+}
+
+// Remove old grid styles
+.cards-grid,
+.contact-card,
+.card-content,
+.card-info,
+.card-icon,
+.card-label,
+.contact-info,
+.configure-prompt,
+.card-status,
+.status-icon {
+  display: none !important;
 }

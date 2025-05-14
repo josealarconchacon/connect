@@ -95,6 +95,8 @@ export class DigitalBusinessCardComponent implements OnInit {
     },
   ];
 
+  isMobile = window.innerWidth <= 600;
+
   constructor(
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
@@ -113,11 +115,17 @@ export class DigitalBusinessCardComponent implements OnInit {
       logoInstagram,
       checkmarkCircle,
     });
+    window.addEventListener('resize', this.updateIsMobile.bind(this));
   }
 
   ngOnInit() {
     // Load saved contacts from storage
     this.loadSavedContacts();
+    this.updateIsMobile();
+  }
+
+  updateIsMobile() {
+    this.isMobile = window.innerWidth <= 600;
   }
 
   private async loadSavedContacts() {
@@ -249,5 +257,22 @@ export class DigitalBusinessCardComponent implements OnInit {
       this.contactCards = [...this.contactCards, newCard];
       await this.showToast('New contact type added');
     }
+  }
+
+  /**
+   * Returns a visually distinct color for each card in the wallet stack.
+   */
+  getWalletColor(index: number): string {
+    const colors = [
+      '#4CAF50', // green
+      '#FFA726', // orange
+      '#EF5350', // red
+      '#42A5F5', // blue
+      '#AB47BC', // purple
+      '#26A69A', // teal
+      '#FF7043', // deep orange
+      '#789262', // olive
+    ];
+    return colors[index % colors.length];
   }
 }

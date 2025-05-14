@@ -25,6 +25,215 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+/* Import theme variables */
+@import "./theme/variables.scss";
+
+/* Global styles */
+:root {
+  --ion-font-family: "Google Sans", -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", "Roboto", sans-serif;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--app-background);
+  color: var(--app-text-color);
+  font-family: var(--ion-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Responsive container */
+.container {
+  width: 100%;
+  max-width: var(--app-max-width);
+  margin: 0 auto;
+  padding: 0 calc(var(--app-spacing-unit) * 2);
+}
+
+/* Card styles */
+ion-card {
+  border-radius: var(--app-border-radius);
+  box-shadow: var(--app-card-shadow) !important;
+  margin: calc(var(--app-spacing-unit) * 2);
+  transition: var(--app-transition);
+  background: var(--app-background);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+/* Button styles */
+ion-button {
+  --border-radius: var(--app-border-radius);
+  --box-shadow: none;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.25px;
+  transition: var(--app-transition);
+
+  &:hover {
+    --opacity: 0.9;
+  }
+}
+
+/* Input styles */
+ion-item {
+  --border-radius: var(--app-border-radius);
+  --background: var(--app-background);
+  --border-color: rgba(var(--ion-color-medium-rgb), 0.2);
+  --highlight-color: var(--ion-color-primary);
+  margin: calc(var(--app-spacing-unit) * 1.5) 0;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: calc(var(--app-spacing-unit) * 2);
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: calc(var(--app-spacing-unit) * 1.5);
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: calc(var(--app-spacing-unit));
+}
+
+p {
+  margin: 0 0 calc(var(--app-spacing-unit) * 1.5);
+  line-height: 1.5;
+}
+
+/* Responsive grid system */
+.grid {
+  display: grid;
+  gap: calc(var(--app-spacing-unit) * 2);
+  grid-template-columns: repeat(12, 1fr);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .container {
+    padding: 0 var(--app-spacing-unit);
+  }
+
+  ion-card {
+    margin: var(--app-spacing-unit);
+  }
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mt-1 {
+  margin-top: var(--app-spacing-unit);
+}
+.mt-2 {
+  margin-top: calc(var(--app-spacing-unit) * 2);
+}
+.mt-3 {
+  margin-top: calc(var(--app-spacing-unit) * 3);
+}
+
+.mb-1 {
+  margin-bottom: var(--app-spacing-unit);
+}
+.mb-2 {
+  margin-bottom: calc(var(--app-spacing-unit) * 2);
+}
+.mb-3 {
+  margin-bottom: calc(var(--app-spacing-unit) * 3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  ion-item {
+    --background: rgba(255, 255, 255, 0.05);
+  }
+
+  ion-card {
+    --background: rgba(255, 255, 255, 0.05);
+  }
+}
+
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
@@ -34,4 +243,4 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.system.css";

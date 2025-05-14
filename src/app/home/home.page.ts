@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonButtons,
-  IonButton,
-  IonIcon,
-} from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DigitalBusinessCardComponent } from '../digital-business-card/digital-business-card.component';
 
@@ -15,14 +8,10 @@ import { DigitalBusinessCardComponent } from '../digital-business-card/digital-b
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  standalone: true,
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonButtons,
-    IonButton,
-    IonIcon,
+    IonicModule,
+    CommonModule,
     RouterModule,
     DigitalBusinessCardComponent,
   ],
