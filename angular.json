@@ -54,7 +54,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "baseHref": "/home/",
+              "baseHref": "/",
               "outputHashing": "all"
             },
             "development": {
