@@ -16,6 +16,7 @@ import {
   logoTwitter,
   logoInstagram,
   checkmarkCircle,
+  personCircle,
 } from 'ionicons/icons';
 
 interface ContactCard {
@@ -114,6 +115,7 @@ export class DigitalBusinessCardComponent implements OnInit {
       logoTwitter,
       logoInstagram,
       checkmarkCircle,
+      personCircle,
     });
     window.addEventListener('resize', this.updateIsMobile.bind(this));
   }
